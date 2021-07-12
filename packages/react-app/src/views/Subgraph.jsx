@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../App.css';
 
@@ -47,5 +47,46 @@ const [error, setError] = useState(null);
   }
 }
 
+
+export default Subgraph;
+*/
+
+import React,{useEffect,useState} from 'react';
+import axios from 'axios';
+import { Table } from 'antd';
+
+const Subgraph=()=>{
+    const [Data,setData]=useState({
+        Name:'',
+        Symbol:'',
+        Price:'',
+        Price_BNB:'',
+    })
+    const [colorsData,setColorsData]=useState([])
+    useEffect(()=>{
+        axios.get('https://api.pancakeswap.info/api/v2/tokens/0xea01a1a3cf143f90b4ac6d069bd369826574cd45')
+            .then(res=>{
+                console.log('Response from main API: ',res)
+                console.log('Home Data: ',res.data.data)
+                let companyData=res.data.data;
+                setData({Name:companyData.name,Symbol:companyData.symbol, Price: companyData.price, Price_BNB: companyData.price_BNB})
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+    },[])
+    return(
+
+        <>
+            <h1>{Data.Name}</h1>
+            <p>{Data.Symbol}</p>
+             <p>{Data.Price}</p>
+              <p>{Data.Price_BNB}</p>
+
+        </>
+
+
+    )
+}
 
 export default Subgraph;
