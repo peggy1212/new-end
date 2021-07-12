@@ -470,12 +470,7 @@ const balance = useContractReader(readContracts, "NFTMinter", "balanceOf", [addr
             />
           </Route>
            <Route path="/subgraph">
-           <Subgraph
-                                 subgraphUri={props.subgraphUri}
-                                 tx={tx}
-                                 writeContracts={writeContracts}
-                                 mainnetProvider={mainnetProvider}
-                               />
+           <Subgraph/>
                              </Route>
         </Switch>
       </BrowserRouter>
