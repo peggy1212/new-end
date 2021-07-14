@@ -68,9 +68,10 @@ const itemsName = Object.entries(items);
 export default Subgraph;
 */
 
-import React,{useEffect,useState} from 'react';
+import React,{useMemo,useEffect,useState} from 'react';
 import axios from 'axios';
 import { Table } from 'antd';
+//import ReactTable from "react-table";
 
 const Subgraph=()=>{
     const [Data,setData]=useState({
@@ -98,7 +99,6 @@ const Subgraph=()=>{
                 Price_BNB:'',
             })
 
-    const [colorsData,setColorsData]=useState([])
     useEffect(()=>{
     axios.all([
         axios.get('https://api.pancakeswap.info/api/v2/tokens/0xea01a1a3cf143f90b4ac6d069bd369826574cd45'),
@@ -123,20 +123,41 @@ const Subgraph=()=>{
                 setData3({Name:companyData3.name,Symbol:companyData3.symbol, Price: companyData3.price, Price_BNB: companyData3.price_BNB})
                 let companyData4=res[3].data.data;
                 setData4({Name:companyData4.name,Symbol:companyData4.symbol, Price: companyData4.price, Price_BNB: companyData4.price_BNB})
+                this.temp=res[0].data.data
+                    const data = this.temp.map(((item, index)=> {
+                        this.data.push(Object.assign({},item,{key:item.name}))
+                    }))
             })
             .catch(err=>{
                 console.log(err);
             })
     },[])
-    return(
 
-        <>
-            <h1>Token Name: {Data.Name}</h1>
-            <p>Token Symbol: {Data.Symbol}</p>
-            <p>Price: {Data.Price}</p>
-            <p>Price_BNB: {Data.Price_BNB}</p>
 
-        <br/>
+/*const array = Object.entries(Data);
+const dataSource = array.map((token, index) => (
+                               <li key={index}></li>
+                                         ))*/
+
+const columns = useMemo(() => [
+    {
+      Header: "Token Name",
+      accessor: "name",
+    },
+    {
+      Header: "Token Symbol",
+      accessor: "symbol",
+    },
+    {
+      Header: "Price",
+      accessor: "price",
+    },
+    {
+          Header: "Price_BNB",
+          accessor: "price_BNB",
+        },
+  ]);
+        /*<br/>
              <h1>Token Name: {Data2.Name}</h1>
              <p>Token Symbol: {Data2.Symbol}</p>
              <p>Price: {Data2.Price}</p>
@@ -155,9 +176,11 @@ const Subgraph=()=>{
               <p>Price_BNB: {Data4.Price_BNB}</p>
 
         <br/>
-                </>
-
-
+                </>*/
+return(
+<div>
+<Table columns={columns} data={Data} />
+</div>
     )
 }
 

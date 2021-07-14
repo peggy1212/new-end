@@ -8,7 +8,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
 import "./App.css";
-import { Account, Address, AddressInput, Contract, Faucet, GasGauge, Header, Minter, NFTViewer, Ramp, ThemeSwitch } from "./components";
+import { Account, Address, AddressInput, Contract, Faucet, GasGauge, Header, Minter, NFTViewer, Ramp, ThemeSwitch, Betting } from "./components";
 import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
 import { Transactor } from "./helpers";
 import {
@@ -365,6 +365,16 @@ const balance = useContractReader(readContracts, "NFTMinter", "balanceOf", [addr
                                 Subgraph
                               </Link>
                             </Menu.Item>
+          <Menu.Item key="/betting">
+             <Link
+                onClick={() => {
+                   setRoute("/betting");
+                     }}
+                       to="/betting"
+                        >
+                        Betting
+                        </Link>
+          </Menu.Item>
         </Menu>
 
         <Switch>
@@ -472,6 +482,9 @@ const balance = useContractReader(readContracts, "NFTMinter", "balanceOf", [addr
            <Route path="/subgraph">
            <Subgraph/>
                              </Route>
+                   <Route path="/betting">
+                   <Betting/>
+                                     </Route>
         </Switch>
       </BrowserRouter>
 

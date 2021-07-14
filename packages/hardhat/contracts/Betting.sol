@@ -1,4 +1,4 @@
-pragma solidity >=0.7.0 <0.9.0;
+pragma solidity ^0.7.0;
 contract Betting {
     address payable public owner;
     uint256 public minimumBet;
@@ -13,7 +13,7 @@ contract Betting {
     mapping(address => Player) public playerInfo;
 
     //function for enabling contract to receive bnb
-    fallback()  external payable {}
+    fallback() external payable {}
 
     constructor() public {
         owner = msg.sender;
