@@ -482,9 +482,14 @@ const balance = useContractReader(readContracts, "NFTMinter", "balanceOf", [addr
            <Route path="/subgraph">
            <Subgraph/>
                              </Route>
-                   <Route path="/betting">
-                   <Betting/>
-                                     </Route>
+           <Route path="/betting">
+                <Betting
+                         signer={userProvider.getSigner()}
+                         provider={localProvider}
+                         address={address}
+                         blockExplorer={blockExplorer}
+                />
+           </Route>
         </Switch>
       </BrowserRouter>
 
